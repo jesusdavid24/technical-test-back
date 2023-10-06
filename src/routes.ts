@@ -1,26 +1,10 @@
 import { Application } from 'express';
-import { expressMiddleware } from '@apollo/server/express4'
-
-import healthcheckRouter from './api/healthcheck';
-import productRouter from './api/product';
-import reviewRouter from './api/review';
 import userRouter from './api/user';
-import authLocalRouter from './auth/local';
-import checkoutRouter from './api/checkout'
+import healthcheckRouter from './api/healthcheck';
 
-const routes = (app: Application, graphqlServer: any) => {
+const routes = (app: Application) => {
   app.use('/api/healthcheck', healthcheckRouter)
-  app.use('/api/users', userRouter)
-  app.use('/api/products', productRouter)
-  app.use('/api/reviews', reviewRouter)
-  app.use('/api/checkout', checkoutRouter)
-
-  //Auth
-  app.use('/auth/local', authLocalRouter)
-
-  // GraphQL
-  app.use('/graphql', expressMiddleware(graphqlServer))
-  
+  app.use('/api/users', userRouter)  
 }
 
 export default routes

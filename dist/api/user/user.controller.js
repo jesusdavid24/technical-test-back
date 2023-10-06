@@ -8,52 +8,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserHandler = exports.deleteUserHandler = exports.getUserHandler = exports.createUserHandler = exports.getAllUserHandler = void 0;
+exports.getAllUserHandler = exports.createUserHandler = void 0;
 const user_service_1 = require("./user.service");
-function getAllUserHandler(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const users = yield (0, user_service_1.getAllUser)();
-        return res.json(users);
-    });
-}
-exports.getAllUserHandler = getAllUserHandler;
+const errorHandler_1 = __importDefault(require("../../utils/errorHandler"));
 function createUserHandler(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const data = req.body;
-        const user = yield (0, user_service_1.createUser)(data);
-        return res.json(user);
+        try {
+            const data = req.body;
+            const user = yield (0, user_service_1.createUser)(data);
+            res.status(201).json(user);
+        }
+        catch (exception) {
+            const message = (0, errorHandler_1.default)(exception);
+            res.status(400).send({ message });
+        }
     });
 }
 exports.createUserHandler = createUserHandler;
-function getUserHandler(req, res) {
+function getAllUserHandler(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { id } = req.params;
-        const user = yield (0, user_service_1.getUserById)(id);
-        if (!user) {
-            return res.status(404).json({
-                message: 'User not found',
-            });
+        try {
+            const users = yield (0, user_service_1.getAllUser)();
+            return res.status(202).json({ message: 'users has been found successfully', users });
         }
-        return res.json(user);
+        catch (exception) {
+            const message = (0, errorHandler_1.default)(exception);
+            res.status(400).send({ message });
+        }
     });
 }
-exports.getUserHandler = getUserHandler;
-function deleteUserHandler(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const { id } = req.user;
-        const user = yield (0, user_service_1.getUserById)(id);
-        if (!user) {
-            return res.status(404).json({
-                message: 'User not found',
-            });
-        }
-        yield (0, user_service_1.deleteUser)(id);
-        return res.json(user);
-    });
-}
-exports.deleteUserHandler = deleteUserHandler;
-function updateUserHandler(req, res) {
-    return __awaiter(this, void 0, void 0, function* () { });
-}
-exports.updateUserHandler = updateUserHandler;
+exports.getAllUserHandler = getAllUserHandler;

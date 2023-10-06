@@ -7,11 +7,9 @@ const express_1 = __importDefault(require("express"));
 const express_2 = __importDefault(require("./config/express"));
 const routes_1 = __importDefault(require("./routes"));
 const app = (0, express_1.default)();
-const port = 8080;
-//Setup Express
+const port = process.env.PORT || 3005;
 (0, express_2.default)(app);
-//Setup Routes
 (0, routes_1.default)(app);
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Listening on port ${port}`);
 });
