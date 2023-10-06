@@ -11,11 +11,10 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  avatar    String?
-  name      String
-  company   String
-  follower  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(cuid())
+  avatar_url String
+  name       String
+  followers  Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

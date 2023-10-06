@@ -8,17 +8,22 @@ export async function getAllUser() {
     select: {
       id: false,
       name: true,
-      avatar: true,
-      company: true,
-      follower: true
+      avatar_url: true,
+      followers: true
     }
   });
   return users;
 }
 
 export async function createUser(data: User) {
+  
   const user = await prisma.user.create({
     data,
+    select: {
+      avatar_url: true,
+      name: true, 
+      followers: true
+    }
   });
 
   return user;
