@@ -63,6 +63,10 @@ Response:
 
 7. The database is already deployed and you can use it without any inconvenience.
 
+## Author ✒️
+
+- **Jesus David Bravo Vergara** - [jesusdavid24](www.linkedin.com/in/jesusdavidb)
+
 ## License
 
 [MIT](LICENSE)
